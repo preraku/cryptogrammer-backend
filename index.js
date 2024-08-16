@@ -116,4 +116,5 @@ setInterval(() => {
   }
 }, 60 * 1000); // Check every minute
 
-server.listen(4000, () => console.log("Server is running on port 4000"));
+const port = process.env.PORT || 8080;
+server.listen(port, () => console.log("Server is running on port " + port));
