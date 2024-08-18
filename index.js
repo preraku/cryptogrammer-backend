@@ -117,8 +117,6 @@ io.on("connection", (socket) => {
     games[gameId] = {
       inputSentence: "THE QUICK BROWN FOX JUMPS OVER THE LAZY DOG",
       modifications: [{ originalChar: "", replacementChar: "", locked: false }],
-      origColor: "#FFA500",
-      modColor: "#008000",
       lastActivity: Date.now(),
     };
     socket.join(gameId);
@@ -186,20 +184,6 @@ io.on("connection", (socket) => {
     debug("Updated input sentence for game:", gameId);
     io.to(gameId).emit("gameState", games[gameId]);
     debug("Game state: ", games[gameId]);
-    logRoomClients(gameId);
-  });
-
-  // Handle color changes
-  socket.on("updateColors", ({ gameId, colors }) => {
-    debug("--- updateColors --- currentGameId:", socket.currentGameId);
-    if (!games[gameId]) {
-      return;
-    }
-    games[gameId].origColor = colors.origColor;
-    games[gameId].modColor = colors.modColor;
-    games[gameId].lastActivity = Date.now();
-    io.to(gameId).emit("gameState", games[gameId]);
-    debug("Colors updated to: ", colors);
     logRoomClients(gameId);
   });
 
